@@ -1,0 +1,13 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/SimplyCppFunctions.cmake")
+include(CMakeFindDependencyMacro)
+
+# 1.26.0: sc::base64::encode_url and decode_url.
+find_or_install_package(sc-core simply-cpp-dev simply-cpp 1.26.0)
+find_or_install_package(sc-cbor simply-cpp-cbor-dev simply-cpp-cbor 0.0.0)
+find_or_install_package(nlohmann_json nlohmann-json3-dev nlohmann_json)
+# The static library links OpenSSL's libcrypto.
+find_or_install_package(OpenSSL libssl-dev openssl 3.0)
+
+include("${CMAKE_CURRENT_LIST_DIR}/sc-passkeyTargets.cmake")

@@ -1,0 +1,6 @@
+simply-cpp-passkey
+Copyright 2026 Roelof Rossouw
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Uses OpenSSL (Apache-2.0), linked dynamically from the system.
