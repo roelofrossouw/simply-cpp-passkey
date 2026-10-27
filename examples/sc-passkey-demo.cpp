@@ -1,8 +1,8 @@
 // Prints the options a browser takes to make a passkey, or checks what a browser answered: a
 // RegistrationResponseJSON saved to a file, against the challenge its options had.
 //
-//     sc-passkey-demo --rp 1web.co.za --origin 'https://*.1web.co.za' --user roelof
-//     sc-passkey-demo --rp 1web.co.za --origin 'https://*.1web.co.za' --challenge <base64url> answer.json
+//     sc-passkey-demo --rp example.com --origin 'https://*.example.com' --user roelof
+//     sc-passkey-demo --rp example.com --origin 'https://*.example.com' --challenge <base64url> answer.json
 
 #include <sc_passkey.h>
 #include <params.h>

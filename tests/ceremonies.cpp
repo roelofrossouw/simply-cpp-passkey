@@ -5,7 +5,7 @@
 #include "sc_test.h"
 
 namespace {
-    const sc::passkey::verifier rp{"1web.co.za", "1Web", {"https://*.1web.co.za", "https://example.org.1web.co.za"}};
+    const sc::passkey::verifier rp{"example.com", "Example", {"https://*.example.com", "https://example.org.example.com"}};
 
     // The reason a call failed with, "" when it didn't.
     template<typename Call>
@@ -26,26 +26,26 @@ int main() {
 
     SECTION("Origins: exact ones, and a wildcard's subdomains at any depth");
     {
-        CHECK(rp.origin_allowed("https://roelof.1web.co.za"));
-        CHECK(rp.origin_allowed("https://feature-x.test.1web.co.za"));
-        CHECK(rp.origin_allowed("https://example.org.1web.co.za"));
-        CHECK(!rp.origin_allowed("https://1web.co.za"));            // the wildcard isn't the bare domain
-        CHECK(!rp.origin_allowed("http://roelof.1web.co.za"));      // https only
-        CHECK(!rp.origin_allowed("https://roelof.1web.co.za:8443")); // no ports
-        CHECK(!rp.origin_allowed("https://roelof.1web.co.za/"));
-        CHECK(!rp.origin_allowed("https://evil1web.co.za"));
-        CHECK(!rp.origin_allowed("https://1web.co.za.evil.com"));
-        CHECK(!rp.origin_allowed("https://Roelof.1web.co.za"));
-        CHECK_THROWS_AS((void) sc::passkey::verifier("1web.co.za", "x", {"https://*.example.com"}), std::invalid_argument);
-        CHECK_THROWS_AS((void) sc::passkey::verifier("1web.co.za", "x", {"http://www.1web.co.za"}), std::invalid_argument);
-        CHECK_THROWS_AS((void) sc::passkey::verifier("1web.co.za", "x", {"https://www.1web.co.za:443"}), std::invalid_argument);
-        CHECK_THROWS_AS((void) sc::passkey::verifier("1web.co.za", "x", {}), std::invalid_argument);
+        CHECK(rp.origin_allowed("https://roelof.example.com"));
+        CHECK(rp.origin_allowed("https://feature-x.test.example.com"));
+        CHECK(rp.origin_allowed("https://example.org.example.com"));
+        CHECK(!rp.origin_allowed("https://example.com"));            // the wildcard isn't the bare domain
+        CHECK(!rp.origin_allowed("http://roelof.example.com"));      // https only
+        CHECK(!rp.origin_allowed("https://roelof.example.com:8443")); // no ports
+        CHECK(!rp.origin_allowed("https://roelof.example.com/"));
+        CHECK(!rp.origin_allowed("https://evilexample.com"));
+        CHECK(!rp.origin_allowed("https://example.com.evil.com"));
+        CHECK(!rp.origin_allowed("https://Roelof.example.com"));
+        CHECK_THROWS_AS((void) sc::passkey::verifier("example.com", "x", {"https://*.example.net"}), std::invalid_argument);
+        CHECK_THROWS_AS((void) sc::passkey::verifier("example.com", "x", {"http://www.example.com"}), std::invalid_argument);
+        CHECK_THROWS_AS((void) sc::passkey::verifier("example.com", "x", {"https://www.example.com:443"}), std::invalid_argument);
+        CHECK_THROWS_AS((void) sc::passkey::verifier("example.com", "x", {}), std::invalid_argument);
     }
 
     SECTION("Options as navigator.credentials takes them");
     {
         const auto made = rp.registration_options({"user-7", "roelof", "Roelof"}, {{"AAAA", {"usb"}}});
-        CHECK_EQ(made["rp"]["id"].get<std::string>(), std::string{"1web.co.za"});
+        CHECK_EQ(made["rp"]["id"].get<std::string>(), std::string{"example.com"});
         CHECK_EQ(made["user"]["id"].get<std::string>(), base64url_encode("user-7"));
         CHECK_EQ(sc::base64::decode_url(made["challenge"].get<std::string>()).size(), std::size_t{32});
         CHECK_EQ(made["pubKeyCredParams"][0]["alg"].get<int>(), -7);
@@ -56,7 +56,7 @@ int main() {
         CHECK_EQ(made["authenticatorSelection"]["userVerification"].get<std::string>(), std::string{"preferred"});
         CHECK(made["challenge"] != rp.registration_options({"user-7", "roelof", ""}, {})["challenge"]);
         const auto asked = rp.authentication_options({{"AAAA", {}}});
-        CHECK_EQ(asked["rpId"].get<std::string>(), std::string{"1web.co.za"});
+        CHECK_EQ(asked["rpId"].get<std::string>(), std::string{"example.com"});
         CHECK_EQ(asked["allowCredentials"][0]["id"].get<std::string>(), std::string{"AAAA"});
         CHECK(!asked["allowCredentials"][0].contains("transports"));
         CHECK_THROWS_AS((void) rp.registration_options({"", "x", ""}, {}), std::invalid_argument);
@@ -129,10 +129,10 @@ int main() {
         p.challenge = challenge();
         CHECK(fails(p, "challenge"));
         p = good;
-        p.origin = "https://evil.example.com";
+        p.origin = "https://evil.example.net";
         CHECK(fails(p, "origin"));
         p = good;
-        p.origin = "https://1web.co.za.evil.com";
+        p.origin = "https://example.com.evil.com";
         CHECK(fails(p, "origin"));
         p = good;
         p.client_extra = R"(,"crossOrigin":true)";
@@ -141,10 +141,10 @@ int main() {
         p.client_extra = R"(,"crossOrigin":false)";
         CHECK(reason_of([&] { return rp.verify_registration(registration(p, key), good.challenge); }).empty());
         p = good;
-        p.client_extra = R"(,"topOrigin":"https://evil.example.com")";
+        p.client_extra = R"(,"topOrigin":"https://evil.example.net")";
         CHECK(fails(p, "cross_origin"));
         p = good;
-        p.rp_id = "evil.example.com";
+        p.rp_id = "evil.example.net";
         CHECK(fails(p, "rp_id"));
         p = good;
         p.flags = 0x44; // UV, AT, not UP
@@ -202,10 +202,10 @@ int main() {
         p.challenge = made.challenge;
         CHECK(fails(p, "challenge"));
         p = good;
-        p.origin = "https://roelof.1web.co.za.evil.com";
+        p.origin = "https://roelof.example.com.evil.com";
         CHECK(fails(p, "origin"));
         p = good;
-        p.rp_id = "1web.co";
+        p.rp_id = "example.co";
         CHECK(fails(p, "rp_id"));
         p = good;
         p.flags = 0x00;

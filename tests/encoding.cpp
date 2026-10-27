@@ -12,7 +12,7 @@ int main() {
 
     SECTION("Fuzz: random and mutated input only ever throws its own errors");
     {
-        const verifier rp{"1web.co.za", "1Web", {"https://*.1web.co.za"}};
+        const verifier rp{"example.com", "Example", {"https://*.example.com"}};
         const test::key_pair key{-7};
         test::parts p;
         p.challenge = sc::base64::encode_url(test::random_id());

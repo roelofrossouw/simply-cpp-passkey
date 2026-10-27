@@ -13,7 +13,7 @@ The caller keeps the challenge and the credentials; this does the COSE keys and 
 ```cpp
 #include <sc_passkey.h>
 
-const sc::passkey::verifier rp{"1web.co.za", "1Web", {"https://*.1web.co.za"}};
+const sc::passkey::verifier rp{"example.com", "Example", {"https://*.example.com"}};
 
 // Registration: options to the browser, its challenge kept; the answer checked.
 const auto options = rp.registration_options({user_id, "roelof", "Roelof"}, already_registered);
@@ -37,7 +37,7 @@ used.sign_count;                                // keep it for the next one
 | `sc::passkey::error` | `reason()`, `what()` | a check that failed |
 | `credential_id(json)` | | a response's credential id, to look its key up |
 
-- **Origins** are exact (`https://www.1web.co.za`) or a wildcard (`https://*.1web.co.za`:
+- **Origins** are exact (`https://www.example.com`) or a wildcard (`https://*.example.com`:
   https, any subdomain depth, not the bare domain), each the RP ID or under it; no ports.
 - **Algorithms:** ES256 (-7), EdDSA with Ed25519 (-8) and RS256 (-257, 2048 bits at
   least), offered in that order.

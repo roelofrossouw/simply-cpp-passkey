@@ -6,7 +6,7 @@
 // sign count); this does the COSE keys, signatures (OpenSSL) and every WebAuthn check, reading the
 // CBOR with sc-cbor in strict mode. Ids, keys and challenges are base64url (sc::base64::encode_url).
 //
-//     sc::passkey::verifier rp{"1web.co.za", "1Web", {"https://*.1web.co.za"}};
+//     sc::passkey::verifier rp{"example.com", "Example", {"https://*.example.com"}};
 //     const auto options = rp.registration_options({user_id, "roelof", "Roelof"}, {});
 //     // ... options to the browser, options["challenge"] kept, the browser's answer back ...
 //     const auto made = rp.verify_registration(answer_json, kept_challenge);
@@ -86,8 +86,8 @@ namespace sc::passkey {
 
     class verifier {
     public:
-        // rp_id: a domain ("1web.co.za"). origins: exact ("https://www.1web.co.za") or a wildcard
-        // ("https://*.1web.co.za": https only, any subdomain depth, not the bare domain); each must
+        // rp_id: a domain ("example.com"). origins: exact ("https://www.example.com") or a wildcard
+        // ("https://*.example.com": https only, any subdomain depth, not the bare domain); each must
         // be https (or http://localhost) with no port or path, and its host the RP ID or under it.
         // std::invalid_argument for one that isn't.
         verifier(std::string rp_id, std::string rp_name, std::vector<std::string> origins);
@@ -127,7 +127,7 @@ namespace sc::passkey {
         std::string rp_id_;
         std::string rp_name_;
         std::vector<std::string> exact_;    // full origins
-        std::vector<std::string> suffixes_; // a wildcard's ".1web.co.za"
+        std::vector<std::string> suffixes_; // a wildcard's ".example.com"
     };
 
     // The credential id (base64url) a response is for, to look its key up before verifying; error

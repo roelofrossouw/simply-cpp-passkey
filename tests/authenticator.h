@@ -87,9 +87,9 @@ namespace test {
     struct parts {
         std::string type = "webauthn.create";
         std::string challenge;          // base64url
-        std::string origin = "https://roelof.1web.co.za";
+        std::string origin = "https://roelof.example.com";
         std::string client_extra;       // more clientDataJSON members, ",\"crossOrigin\":true"
-        std::string rp_id = "1web.co.za";
+        std::string rp_id = "example.com";
         unsigned char flags = 0x45;     // UP, UV, AT
         std::uint32_t sign_count = 0;
         std::string aaguid = std::string(16, '\x11');
