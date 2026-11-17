@@ -4,8 +4,8 @@
 // taken, its statement not checked ("none" asked for).
 #include "vectors.h"
 
-#include <base64.h>
-#include <sc_passkey.h>
+#include <sc/core/base64.h>
+#include <sc/passkey/sc_passkey.h>
 
 #include "sc_test.h"
 

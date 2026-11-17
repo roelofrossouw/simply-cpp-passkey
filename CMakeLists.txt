@@ -9,8 +9,8 @@ get_sc_version()
 message(STATUS "SimplyCPP ${SC_MODULE} Version: ${SC_VERSION}")
 
 # 1.26.0: sc::base64::encode_url and decode_url.
-find_or_install_package(sc-core simply-cpp-dev simply-cpp 1.26.0)
-find_or_install_package(sc-cbor simply-cpp-cbor-dev simply-cpp-cbor 1.0.0)
+find_or_install_package(sc-core simply-cpp-dev simply-cpp 2.2.0)
+find_or_install_package(sc-cbor simply-cpp-cbor-dev simply-cpp-cbor 1.1.0)
 find_or_install_package(nlohmann_json nlohmann-json3-dev nlohmann_json)
 # OpenSSL 3 (EVP_PKEY_fromdata, OSSL_PARAM_BLD): the keys and signatures.
 find_or_install_package(OpenSSL libssl-dev openssl 3.0)
@@ -42,4 +42,4 @@ endif ()
 
 add_sc_example(sc-passkey-demo)
 
-package_sc_module(DEPENDS "simply-cpp-cbor (>= 1.0.0~)" DEV_DEPENDS "simply-cpp-dev (>= 1.26.0~)" "simply-cpp-cbor-dev (>= 1.0.0~)" nlohmann-json3-dev libssl-dev)
+package_sc_module(DEPENDS "simply-cpp-cbor (>= 1.1.0~)" DEV_DEPENDS "simply-cpp-dev (>= 1.26.0~)" "simply-cpp-cbor-dev (>= 1.1.0~)" nlohmann-json3-dev libssl-dev)

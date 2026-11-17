@@ -11,7 +11,7 @@ The caller keeps the challenge and the credentials; this does the COSE keys and 
 **Documentation:** the [simply-cpp wiki](https://github.com/roelofrossouw/simply-cpp/wiki) has the [sc-passkey reference](https://github.com/roelofrossouw/simply-cpp/wiki/Reference-sc-passkey).
 
 ```cpp
-#include <sc_passkey.h>
+#include <sc/passkey/sc_passkey.h>
 
 const sc::passkey::verifier rp{"example.com", "Example", {"https://*.example.com"}};
 
