@@ -33,7 +33,7 @@ install(FILES cmake/SimplyCppFunctions.cmake cmake/sc_bootstrap.cmake
         COMPONENT development)
 # The browser's side (navigator.credentials with the JSON forms, for browsers without toJSON()),
 # in the runtime package: servers that run the PHP extension serve it.
-install(FILES js/sc-passkey.js DESTINATION ${CMAKE_INSTALL_DATADIR}/simply-cpp-passkey COMPONENT runtime)
+install(FILES js/sc-passkey.js DESTINATION ${CMAKE_INSTALL_DATADIR}/simply-cpp-passkey COMPONENT tools)
 
 if (SC_PASSKEY_BUILD_TESTS)
     enable_testing()
