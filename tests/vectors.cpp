@@ -5,7 +5,7 @@
 #include "vectors.h"
 
 #include <sc/core/base64.h>
-#include <sc/passkey/sc_passkey.h>
+#include <sc/passkey/passkey.h>
 
 #include "sc_test.h"
 

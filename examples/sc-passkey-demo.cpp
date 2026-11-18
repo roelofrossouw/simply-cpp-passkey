@@ -4,7 +4,7 @@
 //     sc-passkey-demo --rp example.com --origin 'https://*.example.com' --user roelof
 //     sc-passkey-demo --rp example.com --origin 'https://*.example.com' --challenge <base64url> answer.json
 
-#include <sc/passkey/sc_passkey.h>
+#include <sc/passkey/passkey.h>
 #include <sc/core/params.h>
 
 #include <fstream>

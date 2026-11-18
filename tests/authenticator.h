@@ -5,8 +5,8 @@
 // part can be changed before it's put together, for the cases that must fail.
 
 #include <sc/core/base64.h>
-#include <sc/cbor/sc_cbor.h>
-#include <sc/passkey/sc_passkey.h>
+#include <sc/cbor/cbor.h>
+#include <sc/passkey/passkey.h>
 
 #include <openssl/core_names.h>
 #include <openssl/evp.h>

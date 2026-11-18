@@ -1,7 +1,7 @@
-#include <sc/passkey/sc_passkey.h>
+#include <sc/passkey/passkey.h>
 
 #include <sc/core/base64.h>
-#include <sc/cbor/sc_cbor.h>
+#include <sc/cbor/cbor.h>
 
 #include <openssl/bn.h>
 #include <openssl/core_names.h>
